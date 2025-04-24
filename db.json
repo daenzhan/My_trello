@@ -1,0 +1,115 @@
+{
+  "boards": [
+    {
+      "id": "a1dd",
+      "title": "sds"
+    },
+    {
+      "id": "d11c",
+      "title": "Family"
+    },
+    {
+      "id": "ef04",
+      "title": "l,lc,v"
+    }
+  ],
+  "columns": [
+    {
+      "id": "8c7d",
+      "boardId": "d11c",
+      "title": "today"
+    },
+    {
+      "id": "f83b",
+      "boardId": "d11c",
+      "title": "maybe later"
+    },
+    {
+      "id": "65c7",
+      "boardId": "a1dd",
+      "title": "tomorrow"
+    },
+    {
+      "id": "b5ae",
+      "boardId": "a1dd",
+      "title": "maybe later"
+    },
+    {
+      "id": "8b58",
+      "boardId": "d11c",
+      "title": "чсмчсм"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "33a7",
+      "columnId": null,
+      "title": "frontend - Lab 2d"
+    },
+    {
+      "id": "457f",
+      "columnId": null,
+      "title": "job"
+    },
+    {
+      "id": "c98d",
+      "columnId": null,
+      "title": "buy bread"
+    },
+    {
+      "id": "6ade",
+      "columnId": null,
+      "title": "call mom"
+    },
+    {
+      "id": "d6d8",
+      "columnId": null,
+      "title": "buy basic products"
+    },
+    {
+      "id": "b2f3",
+      "columnId": null,
+      "title": "cleaning"
+    },
+    {
+      "id": "7694",
+      "columnId": null,
+      "title": "OS - Lab 9"
+    },
+    {
+      "id": "7edc",
+      "column_id": "1244",
+      "title": "kkllk"
+    },
+    {
+      "id": "32c3",
+      "columnId": null,
+      "title": "call dad"
+    },
+    {
+      "id": "469e",
+      "columnId": null,
+      "title": "fsdfsd"
+    },
+    {
+      "id": "f40b",
+      "columnId": null,
+      "title": "dsfdsf"
+    },
+    {
+      "id": "7b9c",
+      "columnId": null,
+      "title": "bcb"
+    },
+    {
+      "id": "2338",
+      "columnId": "8c7d",
+      "title": "cvbvc"
+    },
+    {
+      "id": "a576",
+      "columnId": "65c7",
+      "title": "vcbc"
+    }
+  ]
+}
