@@ -1,12 +1,16 @@
 import { api } from '../../api';
 import { ADD_TASK, UPDATE_TASK, DELETE_TASK, MOVE_TASK } from './types';
 
+
+
+// ВОООТ АСИНХРОН
+
 export const addTask = (columnId, title) => async (dispatch) => {
   try {
     const response = await api.post('/tasks', { columnId, title });
     dispatch({ 
       type: ADD_TASK, 
-      payload: { columnId, task: response.data } 
+      payload: { columnId, task: response.data } // сохраняем все потому что асинхроооон
     });
     return { success: true };
   } catch (error) {

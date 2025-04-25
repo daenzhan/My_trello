@@ -5,12 +5,12 @@ import taskReducer from './reducers/taskReducer';
 
 export const store = configureStore({
   reducer: {
-    boards: boardReducer,
+    boards: boardReducer,  // все будет храниться в state.boards
     columns: columnReducer,
     tasks: taskReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({  // промежточный ПО
+    serializableCheck: false // можно payload  + перетаскивание
   })
 });
 

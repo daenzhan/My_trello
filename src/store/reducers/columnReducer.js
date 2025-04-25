@@ -15,6 +15,7 @@ import {
   
   export default function columnReducer(state = initialState, action) {
     switch (action.type) {
+      // не изменяют исходный state, а создают новый!
       case FETCH_COLUMNS_REQUEST:
         return { ...state, loading: true, error: null };
       case FETCH_COLUMNS_SUCCESS:
