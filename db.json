@@ -256,5 +256,27 @@
       "columnId": "65c7",
       "title": ","
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "password": "password123"
+    },
+    {
+      "id": "b900",
+      "email": "aru@gmail.com",
+      "password": "888888"
+    },
+    {
+      "id": "04b6",
+      "email": "toma@gmail.com",
+      "password": "5555555"
+    },
+    {
+      "id": "d6a3",
+      "email": "bibina@gmail.com",
+      "password": "222222222"
+    }
   ]
 }

@@ -288,3 +288,34 @@ button:disabled {
 .dark-mode .edit-button:disabled {
   background-color: #64748b;
 }
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logout-button {
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #dfe1e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #e0e0e0;
+}
+
+.dark-mode .logout-button {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.dark-mode .logout-button:hover {
+  background-color: #475569;
+}

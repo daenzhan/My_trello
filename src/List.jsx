@@ -4,12 +4,14 @@ import { useTheme } from "./ThemeContext";
 import "./List.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBoards, addBoard, updateBoard, deleteBoard } from './store/actions/boardActions';
+import { useAuth } from "./AuthContext";
 
 
 export default function List() {
   const [newBoardTitle, setNewBoardTitle] = useState("");
   const { isDarkMode, toggle_theme } = useTheme();
   const dispatch = useDispatch();
+  const { user, logout } = useAuth();
   
   const { boards, loading, error } = useSelector(state => ({
     boards: state.boards.boards,
@@ -82,9 +84,16 @@ export default function List() {
           </svg>
           Главная
         </Link>
-        <button onClick={toggle_theme} className="theme-toggle">
-          {isDarkMode ? "Светлая" : "Тёмная"}
-        </button>
+        <div className="nav-actions">
+          <button onClick={toggle_theme} className="theme-toggle">
+            {isDarkMode ? "Светлая" : "Тёмная"}
+          </button>
+          {user && (
+            <button onClick={logout} className="logout-button">
+              Выйти ({user.email})
+            </button>
+          )}
+        </div>
       </nav>
 
       <div className="list-container">

@@ -1,0 +1,149 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dark-mode .login-container {
+    background-color: #0f172a;
+  }
+  
+  .login-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    transition: all 0.3s ease;
+  }
+  
+  .dark-mode .login-form {
+    background: #1e293b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .login-form h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #172b4d;
+    transition: color 0.3s ease;
+  }
+  
+  .dark-mode .login-form h2 {
+    color: #e2e8f0;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #172b4d;
+    transition: color 0.3s ease;
+  }
+  
+  .dark-mode .form-group label {
+    color: #e2e8f0;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .dark-mode .form-group input {
+    background-color: #334155;
+    border-color: #475569;
+    color: #e2e8f0;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #083676;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+  }
+  
+  .login-button:hover {
+    background-color: #0e5cc9;
+  }
+  
+  .dark-mode .login-button {
+    background-color: #4f46e5;
+  }
+  
+  .dark-mode .login-button:hover {
+    background-color: #4338ca;
+  }
+  
+  .toggle-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    color: #083676;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: color 0.2s;
+  }
+  
+  .toggle-button:hover {
+    color: #0e5cc9;
+    text-decoration: underline;
+  }
+  
+  .dark-mode .toggle-button {
+    color: #4f46e5;
+  }
+  
+  .dark-mode .toggle-button:hover {
+    color: #4338ca;
+  }
+  
+  .error-message {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #ffebee;
+    color: #c62828;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #ef9a9a;
+  }
+  
+  .dark-mode .error-message {
+    background-color: #7f1d1d;
+    color: #fecaca;
+    border-color: #b91c1c;
+  }
+  .success-message {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #a5d6a7;
+  }
+  
+  .dark-mode .success-message {
+    background-color: #1b5e20;
+    color: #c8e6c9;
+    border-color: #4caf50;
+  }
