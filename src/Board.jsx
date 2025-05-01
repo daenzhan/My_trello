@@ -10,6 +10,7 @@ import {
   deleteColumn 
 } from './store/actions/columnActions';
 import { 
+  loadTasks,
   addTask, 
   updateTask, 
   deleteTask,
@@ -121,6 +122,7 @@ export default function Board() {
 
   useEffect(() => {
     dispatch(fetchColumns(boardId));
+    dispatch(loadTasks());
   }, [boardId, dispatch]);
 
   const handleAddColumn = useCallback(async () => {
@@ -158,18 +160,18 @@ export default function Board() {
     }
   }, [dispatch]);
 
-  const handleUpdateTask = useCallback(async (taskId, currentTitle) => {
+  const handleUpdateTask = useCallback(async (columnId, taskId, currentTitle) => {
     const newTitle = prompt("Введите название:", currentTitle);
     if (!newTitle || newTitle === currentTitle) return;
-    const result = dispatch(updateTask(taskId, newTitle));
+    const result = dispatch(updateTask(taskId, columnId, newTitle));
     if (!result.success) {
       setError(result.error);
     }
   }, [dispatch]);
 
-  const handleDeleteTask = useCallback(async (taskId) => {
+  const handleDeleteTask = useCallback(async (columnId, taskId) => {
     if (!confirm("Удалить задачу?")) return;
-    const result = dispatch(deleteTask(taskId));
+    const result = dispatch(deleteTask(taskId, columnId));
     if (!result.success) {
       setError(result.error);
     }

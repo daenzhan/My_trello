@@ -1,4 +1,4 @@
-import { ADD_TASK, UPDATE_TASK, DELETE_TASK, MOVE_TASK } from '../actions/types';
+import { ADD_TASK, UPDATE_TASK, DELETE_TASK, MOVE_TASK, LOAD_TASKS } from '../actions/types';
 
 const initialState = {
   tasksByColumn: {},
@@ -8,6 +8,20 @@ const initialState = {
 
 export default function taskReducer(state = initialState, action) {
   switch (action.type) {
+
+    case LOAD_TASKS:
+      const tasksByColumn = {};
+      action.payload.forEach(task => {
+        if (!tasksByColumn[task.columnId]) {
+          tasksByColumn[task.columnId] = [];
+        }
+        tasksByColumn[task.columnId].push(task);
+      });
+      return {
+        ...state,
+        tasksByColumn
+      };
+
     case ADD_TASK:
       return {
         ...state,
@@ -19,34 +33,28 @@ export default function taskReducer(state = initialState, action) {
           ]
         }
       };
-    case UPDATE_TASK:
-      const columnId = Object.keys(state.tasksByColumn).find(key =>
-        state.tasksByColumn[key].some(task => task.id === action.payload.taskId)
-      );
-      return {
-        ...state,
-        tasksByColumn: {
-          ...state.tasksByColumn,
-          [columnId]: state.tasksByColumn[columnId].map(task =>
-            task.id === action.payload.taskId
-              ? { ...task, title: action.payload.title }
-              : task
-          )
-        }
-      };
-    case DELETE_TASK:
-      const columnIdToUpdate = Object.keys(state.tasksByColumn).find(key =>
-        state.tasksByColumn[key].some(task => task.id === action.payload)
-      );
-      return {
-        ...state,
-        tasksByColumn: {
-          ...state.tasksByColumn,
-          [columnIdToUpdate]: state.tasksByColumn[columnIdToUpdate].filter(
-            task => task.id !== action.payload
-          )
-        }
-      };
+      case UPDATE_TASK:
+        return {
+          ...state,
+          tasksByColumn: {
+            ...state.tasksByColumn,
+            [action.payload.columnId]: state.tasksByColumn[action.payload.columnId].map(task =>
+              task.id === action.payload.taskId
+                ? { ...task, title: action.payload.title }
+                : task
+            )
+          }
+        };
+      case DELETE_TASK:
+        return {
+          ...state,
+          tasksByColumn: {
+            ...state.tasksByColumn,
+            [action.payload.columnId]: state.tasksByColumn[action.payload.columnId].filter(
+              task => task.id !== action.payload.taskId
+            )
+          }
+        };
       case MOVE_TASK:
         const { taskId, fromColumnId, toColumnId, newIndex } = action.payload;
         
