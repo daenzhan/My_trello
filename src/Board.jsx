@@ -7,7 +7,8 @@ import {
   fetchColumns, 
   addColumn, 
   updateColumn, 
-  deleteColumn 
+  deleteColumn,
+  moveColumn
 } from './store/actions/columnActions';
 import { 
   loadTasks,
@@ -50,6 +51,7 @@ const Card = ({ task, onEdit, onDelete, disabled }) => {
 
 const Column = ({ 
   column, 
+  index,
   tasks, 
   onColumnEdit, 
   onColumnDelete, 
@@ -57,23 +59,33 @@ const Column = ({
   onTaskEdit, 
   onTaskDelete,
   onTaskMove,
+  onColumnMove,
   disabled
 }) => {
-  const [{ isOver }, drop] = useDrop(() => ({     // сюда можно закидывать)
-    accept: 'CARD',
-    drop: (item) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'COLUMN',
+    item: { id: column.id, index },
+  }));
+  
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: ['CARD', 'COLUMN'],
+    drop: (item, monitor) => {
+      if (monitor.getItemType() === 'CARD') {
         onTaskMove(item.id, item.columnId, column.id);
+      }
     },
-    collect: (monitor) => ({  // находиться или нет
+    hover: (item, monitor) => {
+      if (monitor.getItemType() === 'COLUMN' && item.id !== column.id) {
+        onColumnMove(item.id, index);
+      }
+    },
+    collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-
-  /// ОБЗАТЕЛЬНО - для реагирования || меняет || rev дом
-  // isOver просветка
   return (
-    <div ref={drop} className={`column ${isOver ? 'is-over' : ''}`}>  
+    <div ref={(node) => drag(drop(node))} className={`column ${isOver ? 'is-over' : ''}`}>
       <div className="column-header">
         <h3 onClick={() => onColumnEdit(column.id, column.title)}>
           {column.title}
@@ -107,6 +119,7 @@ const Column = ({
     </div>
   );
 };
+
 
 export default function Board() {
   const { id: boardId } = useParams();
@@ -184,6 +197,17 @@ export default function Board() {
     }
   }, [dispatch]);
 
+
+  const handleMoveColumn = useCallback(async (columnId, newIndex) => {
+    const result = await dispatch(moveColumn(columnId, newIndex));
+    if (!result.success) {
+      setError(result.error);
+    }
+  }, [dispatch]);
+  
+
+
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="board-page">
@@ -195,7 +219,7 @@ export default function Board() {
             Главная
           </Link>
           <button onClick={toggle_theme} className="theme-toggle">
-            {isDarkMode ? "Светлая" : "Тёмная"}
+            {isDarkMode ? "" : ""}
           </button>
         </nav>
 
@@ -212,20 +236,22 @@ export default function Board() {
           </button>
 
           <div className="board">
-            {columns.map(column => (
+             {columns.map((column, index) => (
               <Column
-                key={column.id}
-                column={column}
-                tasks={tasks[column.id] || []}
-                onColumnEdit={handleUpdateColumn}
-                onColumnDelete={handleDeleteColumn}
-                onTaskAdd={handleAddTask}
-                onTaskEdit={handleUpdateTask}
-                onTaskDelete={handleDeleteTask}
-                onTaskMove={handleMoveTask}
-                disabled={loading}
-              />
-            ))}
+             key={column.id}
+              column={column}
+              index={index}
+              tasks={tasks[column.id] || []}
+              onColumnEdit={handleUpdateColumn}
+              onColumnDelete={handleDeleteColumn}
+               onTaskAdd={handleAddTask}
+              onTaskEdit={handleUpdateTask}
+              onTaskDelete={handleDeleteTask}
+              onTaskMove={handleMoveTask}
+             onColumnMove={handleMoveColumn}
+            disabled={loading}
+          />
+         ))}
           </div>
         </div>
       </div>

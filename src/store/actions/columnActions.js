@@ -5,7 +5,8 @@ import {
   FETCH_COLUMNS_FAILURE,
   ADD_COLUMN,
   UPDATE_COLUMN,
-  DELETE_COLUMN
+  DELETE_COLUMN,
+  MOVE_COLUMN
 } from './types';
 
 export const fetchColumns = (boardId) => async (dispatch) => {
@@ -51,6 +52,26 @@ export const deleteColumn = (columnId) => async (dispatch) => {
   try {
     await api.delete(`/columns/${columnId}`);
     dispatch({ type: DELETE_COLUMN, payload: columnId });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+export const moveColumn = (columnId, newIndex) => async (dispatch, getState) => {
+  try {
+    const state = getState();
+    const boardId = Object.keys(state.columns.columnsByBoard).find(key =>
+      state.columns.columnsByBoard[key].some(col => col.id === columnId)
+    );
+    
+    if (!boardId) throw new Error('Column not found');
+    
+    await api.patch(`/columns/${columnId}`, { index: newIndex });
+    dispatch({ 
+      type: MOVE_COLUMN, 
+      payload: { columnId, boardId, newIndex } 
+    });
     return { success: true };
   } catch (error) {
     return { success: false, error: error.message };

@@ -4,7 +4,8 @@ import {
     FETCH_COLUMNS_FAILURE,
     ADD_COLUMN,
     UPDATE_COLUMN,
-    DELETE_COLUMN
+    DELETE_COLUMN,
+    MOVE_COLUMN
   } from '../actions/types';
   
   const initialState = {
@@ -55,6 +56,8 @@ import {
             )
           }
         };
+
+      
       case DELETE_COLUMN:
         const boardIdToUpdate = Object.keys(state.columnsByBoard).find(key =>
           state.columnsByBoard[key].some(col => col.id === action.payload)
@@ -68,7 +71,32 @@ import {
             )
           }
         };
-      default:
-        return state;
+      
+      case MOVE_COLUMN:
+        const { columnId: moveColumnId, boardId: moveBoardId, newIndex } = action.payload;
+        const columns = [...state.columnsByBoard[moveBoardId]];
+         const oldIndex = columns.findIndex(col => col.id === moveColumnId);
+  
+         if (oldIndex === -1) return state;
+  
+         // Remove from old position and insert at new position
+         const [movedColumn] = columns.splice(oldIndex, 1);
+         columns.splice(newIndex, 0, movedColumn);
+  
+         // Update indexes for all columns
+        const updatedColumns = columns.map((col, idx) => ({
+        ...col,
+        index: idx
+       }));
+  
+      return {
+       ...state,
+       columnsByBoard: {
+        ...state.columnsByBoard,
+       [moveBoardId]: updatedColumns
+       }
+      };
+    default:
+      return state;
     }
   }

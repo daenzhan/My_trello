@@ -2,10 +2,8 @@ import { createContext, useContext, useState, useEffect, useMemo } from "react";
 
 const ThemeContext = createContext();
 
-// Экспортируем контекст отдельно для возможного использования напрямую
 export const themeContext = ThemeContext;
 
-// Компонент ThemeProvider
 export function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -32,12 +30,10 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
-
-// Хук useTheme
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error('');
   }
   return context;
 }
